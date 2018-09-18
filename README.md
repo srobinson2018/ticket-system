@@ -97,9 +97,9 @@ reads system variables to configure the venue size and hold expiration time.
 | Venue seats per row  | `venue.seats`    | 33       |
 | Hold timeout (sec)  | `timeout.hold`    | 60       |
 
-_Example_:
+_Example_: (to pass in via command line, must use `java` command or set system properties)
 
-```./ticket-system-0.0.1-SNAPSHOT.jar -Dvenue.rows=10 -Dvenue.seats=12 -Dtimeout.hold=120```
+```java -Dvenue.rows=10 -Dvenue.seats=12 -Dtimeout.hold=120 -jar ticket-system-0.0.1-SNAPSHOT.jar```
 
 ## Future Improvement
 
