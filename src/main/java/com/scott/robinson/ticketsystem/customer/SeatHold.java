@@ -1,5 +1,6 @@
 package com.scott.robinson.ticketsystem.customer;
 
+import java.security.SecureRandom;
 import lombok.Getter;
 
 import java.util.Random;
@@ -17,7 +18,7 @@ public final class SeatHold extends SeatAction {
 
     SeatHold(final String email, final Seats seats) {
         super(email, seats);
-        this.id = new Random().nextInt(9999999) + 1;
+        this.id = new SecureRandom().nextInt(9999999) + 1;
     }
 
 }
