@@ -1,7 +1,10 @@
 package com.scott.robinson.ticketsystem.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +35,7 @@ final class TicketControllerImpl implements TicketController {
      *
      * @return {@link String} representation of the venue containing both the total seats available and a seat map.
      */
-    @RequestMapping(path = "/map", method = RequestMethod.GET, produces = "text/plain")
+    @GetMapping(path = "/map", produces = "text/plain")
     @Override
     public String seeAvailableSeats() {
         try {
@@ -51,7 +54,7 @@ final class TicketControllerImpl implements TicketController {
      * @param customerEmail User's email address
      * @return {@link SeatHold} representing the seat hold for the user
      */
-    @RequestMapping(path = "/request", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(path = "/request", produces = "application/json")
     @Override
     public SeatHold requestSeats(@RequestParam final int numSeats, @RequestHeader(name = "customer") final String customerEmail) {
         return ticketService.findAndHoldSeats(numSeats, customerEmail);
@@ -64,7 +67,7 @@ final class TicketControllerImpl implements TicketController {
      * @param customerEmail The user's email address
      * @return {@link String} confirmation code
      */
-    @RequestMapping(path = "/{id}/reserve", method = RequestMethod.POST, produces = "text/plain")
+    @PostMapping(path = "/{id}/reserve", produces = "text/plain")
     @Override
     public String reserveSeats(@PathVariable final int id, @RequestHeader(name = "customer") final String customerEmail) {
         try {
@@ -85,7 +88,7 @@ final class TicketControllerImpl implements TicketController {
      * @param customerEmail The user's email address
      * @return The result of the cancellation
      */
-    @RequestMapping(path = "/{id}/cancel", method = RequestMethod.DELETE, produces = "text/plain")
+    @DeleteMapping(path = "/{id}/cancel", produces = "text/plain")
     @Override
     public String cancelSeats(@PathVariable final int id, @RequestHeader(name = "customer") final String customerEmail) {
         try {
@@ -105,7 +108,7 @@ final class TicketControllerImpl implements TicketController {
      * @param customerEmail The user's email address
      * @return The associated {@link SeatHold}
      */
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(path = "/{id}", produces = "application/json")
     @Override
     public SeatHold getHold(@PathVariable final int id, @RequestHeader(name = "customer") final String customerEmail) {
         return ticketService.getHold(id, customerEmail);
